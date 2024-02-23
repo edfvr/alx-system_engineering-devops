@@ -14,7 +14,7 @@ then
 
     if [ -f $file ]
     then
-	    echo "$file i a rgulaser file"
+	    echo "$file is a regular file"
     fi
 else
     echo "$file file does not exist"
