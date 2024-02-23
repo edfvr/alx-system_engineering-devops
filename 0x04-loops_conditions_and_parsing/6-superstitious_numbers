@@ -8,6 +8,7 @@ do
         4) echo "bad luck from China";;
         9) echo "badluck from Japan";;
         17) echo "bad luck  from Italy";;
+	*) echo ""
     esac
     ((count++))
 done
