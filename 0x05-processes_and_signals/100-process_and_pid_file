@@ -1,0 +1,9 @@
+#!/bin/bash
+# Creates the file /var/run/myscript.pid containing its PID
+trap 'echo "I haste the kill command"; rm -f /var/run/myscript.pid; exit'
+trap 'echo "Y U no love me?!"' SIGINT
+echo $$ > /var/run/myscript.pid
+while true; do
+	echo "To infinity and beyond"
+	sleep 1
+done
