@@ -1,7 +1,35 @@
 #!/usr/bin/env bash
-# Script that sets the port 80
-# Requirement: Nginx must be running, and listening on port 80 of all the server’s active IPv4 IPs
-# Bug: sudo nginx status returns 'not running'; netstat -lpn does not show port 80
-# Solution: https://stackoverflow.com/questions/16021481/nginx-not-listening-to-port-80
-sudo sed -i "s/sites-enabled/sites-available/" /etc/nginx/nginx.conf
+# Configure Nginx server with a custom header
+# configures web-02 to be identical to web-01
+
+sudo apt-get -y update
+sudo apt-get -y install nginx
+sudo service nginx start
+
+su" | sudo tee /usr/share/nginx/html/custom_404.htmldo sh -c 'echo "Hello World!" > /var/www/html/index.nginx-debian.html'
+echo "Ceci n'est pas une page
+sudo sh -c 'printf %s "server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    add_header X-Served-By $HOSTNAME;
+    root   /var/www/html;
+    index  index.html index.htm;
+
+    location /redirect_me {
+        return 301 http://google.com/;
+    }
+
+    location / {
+        # First attempt to serve request as file, then
+        # as directory, then fall back to displaying a 404.
+        try_files $uri $uri/ =404;
+    }
+
+    error_page 404 /404.html;
+    location /404 {
+      root /var/www/html;
+      internal;
+    }
+}" > /etc/nginx/sites-available/default'
+
 sudo service nginx restart
